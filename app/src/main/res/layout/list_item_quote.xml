@@ -43,5 +43,18 @@
             android:paddingRight="3dp"
             android:paddingEnd="3dp"
             tools:text="100%" />
+
+        <TextView
+            android:id="@+id/change_red"
+            style="@style/PercentChangeTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/percent_change_pill_red"
+            android:paddingLeft="3dp"
+            android:paddingStart="3dp"
+            android:paddingRight="3dp"
+            android:paddingEnd="3dp"
+            tools:text="100%"
+            android:visibility="gone"/>
     </LinearLayout>
 </LinearLayout>
