@@ -30,65 +30,6 @@ public class StockHawkWidgetDataProvider implements RemoteViewsService.RemoteVie
     private final DecimalFormat dollarFormat;
     private final DecimalFormat percentageFormat;
 
-    private static final class ShockHawkDataModel {
-        private String symbol;
-        private String price;
-        private String change;
-        private String percentage;
-        private float rawAbsoluteChange;
-        private float percentageChange;
-
-        private ShockHawkDataModel() {
-        }
-
-        public static final class ShockHawkDataModelBuilder {
-            private ShockHawkDataModelBuilder() {
-            }
-
-            public static ShockHawkDataModelBuilder getBuilder() {
-                return new ShockHawkDataModelBuilder();
-            }
-
-            public ShockHawkDataModel build(Cursor cursor) {
-                ShockHawkDataModel model = new ShockHawkDataModel();
-                model.symbol = cursor.getString(Contract.Quote.POSITION_SYMBOL);
-                model.price = StockUtils.getDollarFormat().format(cursor.getFloat(Contract.Quote.POSITION_PRICE));
-
-                model.rawAbsoluteChange = cursor.getFloat(Contract.Quote.POSITION_ABSOLUTE_CHANGE);
-                model.percentageChange = cursor.getFloat(Contract.Quote.POSITION_PERCENTAGE_CHANGE);
-
-                model.change = StockUtils.getDollarFormatWithPlus().format(model.rawAbsoluteChange);
-                model.percentage = StockUtils.getPercentageFormat().format(model.percentageChange / 100);
-
-                return model;
-            }
-        }
-
-        public String getSymbol() {
-            return symbol;
-        }
-
-        public String getPrice() {
-            return price;
-        }
-
-        public String getChange() {
-            return change;
-        }
-
-        public String getPercentage() {
-            return percentage;
-        }
-
-        public float getRawAbsoluteChange() {
-            return rawAbsoluteChange;
-        }
-
-        public float getPercentageChange() {
-            return percentageChange;
-        }
-    }
-
     public StockHawkWidgetDataProvider(Context context, Intent intent) {
         this.list = new ArrayList();
         this.context = context;
@@ -125,12 +66,12 @@ public class StockHawkWidgetDataProvider implements RemoteViewsService.RemoteVie
 
         RemoteViews mView = new RemoteViews(context.getPackageName(), R.layout.list_item_quote);
 
-        mView.setTextViewText(R.id.symbol, model.symbol);
-        mView.setTextViewText(R.id.price, model.price);
+        mView.setTextViewText(R.id.symbol, model.getSymbol());
+        mView.setTextViewText(R.id.price, model.getPrice());
 
         int activeChangeView;
 
-        if (model.rawAbsoluteChange > 0) {
+        if (model.getRawAbsoluteChange() > 0) {
             activeChangeView = R.id.change;
             mView.setViewVisibility(R.id.change, View.VISIBLE);
             mView.setViewVisibility(R.id.change_red, View.GONE);
@@ -142,9 +83,9 @@ public class StockHawkWidgetDataProvider implements RemoteViewsService.RemoteVie
         }
 
         if (PrefUtils.getDisplayMode(context).equals(context.getString(R.string.pref_display_mode_absolute_key))) {
-            mView.setTextViewText(activeChangeView, model.change);
+            mView.setTextViewText(activeChangeView, model.getChange());
         } else {
-            mView.setTextViewText(activeChangeView, model.percentage);
+            mView.setTextViewText(activeChangeView, model.getPercentage());
         }
 
         return mView;
