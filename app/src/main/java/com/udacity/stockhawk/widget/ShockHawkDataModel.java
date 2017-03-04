@@ -7,7 +7,6 @@ import com.udacity.stockhawk.data.StockUtils;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 
 /**

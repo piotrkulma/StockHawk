@@ -31,5 +31,6 @@
     <string name="dialog_cancel_content_description">Zamknij okno do dodawania spółki</string>
     <string name="display_mode_absolute_content_decription">Wyświetlanie przyrostu kwotowego.</string>
     <string name="display_mode_percentage_content_decription">Wyświetlanie przyrostu procentowego.</string>
+    <string name="stock_list_empty">Nie można pobrać listy akcji spółek. Sprawdź połączenie z internetem!</string>
 
 </resources>

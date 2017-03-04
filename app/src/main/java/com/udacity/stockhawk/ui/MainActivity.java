@@ -177,6 +177,17 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             error.setVisibility(View.GONE);
         }
         adapter.setCursor(data);
+
+        Cursor cursor = getContentResolver().query(Contract.Quote.URI,
+                Contract.Quote.QUOTE_COLUMNS.toArray(new String[]{}),
+                null, null, Contract.Quote.COLUMN_SYMBOL);
+
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+
+        if ((networkInfo == null || !networkInfo.isAvailable() || !networkInfo.isConnectedOrConnecting()) && cursor.getCount() == 0) {
+            Toast.makeText(this, getString(R.string.stock_list_empty), Toast.LENGTH_LONG).show();
+        }
     }
 
 
