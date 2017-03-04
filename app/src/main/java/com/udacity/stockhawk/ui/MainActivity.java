@@ -1,6 +1,7 @@
 package com.udacity.stockhawk.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -33,6 +34,8 @@ import timber.log.Timber;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>,
         SwipeRefreshLayout.OnRefreshListener,
         StockAdapter.StockAdapterOnClickHandler {
+
+    public static String STOCK_HISTORY_EXTRA_MESSAGE = "com.udacity.stockhawk.ui.STOCK_HISTORY_EXTRA_MESSAGE";
 
     private static final int STOCK_LOADER = 0;
     @SuppressWarnings("WeakerAccess")
@@ -70,6 +73,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onClick(String symbol) {
+        Intent intent = new Intent(this, StockHistoryActivity.class);
+        intent.putExtra(STOCK_HISTORY_EXTRA_MESSAGE, symbol);
+        startActivity(intent);
+
         Timber.d("Symbol clicked: %s", symbol);
     }
 
