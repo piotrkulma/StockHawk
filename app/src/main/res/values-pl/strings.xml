@@ -1,0 +1,31 @@
+<resources>
+    <string translatable="false" name="app_name">Stock Hawk</string>
+    <string translatable="false" name="pref_stocks_initialized_key">initialized</string>
+    <string translatable="false" name="pref_stocks_key">stocks</string>
+
+    <string translatable="false" name="pref_display_mode_key">displayMode</string>
+    <string translatable="false" name="pref_display_mode_default">@string/pref_display_mode_percentage_key</string>
+
+    <string translatable="false" name="pref_display_mode_absolute_key">absolute</string>
+    <string translatable="false" name="pref_display_mode_percentage_key">percentage</string>
+
+    <string translatable="false" name="default_stocks_yahoo">YHOO</string>
+    <string translatable="false" name="default_stocks_apple">AAPL</string>
+    <string translatable="false" name="default_stocks_microsoft">MSFT</string>
+    <string translatable="false" name="default_stocks_facebook">FB</string>
+
+    <string translatable="false" name="action_change_units">@string/pref_display_mode_key</string>
+
+    <string name="dialog_title">Śledź notowania spółki</string>
+    <string name="dialog_hint">Symbol spółki (np. GOOG)</string>
+    <string name="dialog_cancel">Anuluj</string>
+    <string name="dialog_add">Dodaj</string>
+
+    <string name="error_no_network">Brak połączenia internetowego!</string>
+    <string name="error_no_stocks">Nie dodano spółki!</string>
+
+    <string name="toast_stock_added_no_connectivity">Symbol %s został dodany. Dane zostaną odświerzone gdy połączenie z siecią znów będzie aktywne.</string>
+    <string name="toast_no_connectivity">Dane zostaną odświerzone gdy połączenie z siecią znów będzie aktywne.</string>
+    <string name="incorrect_stock_code">Kod społki jest niepoprawny. Sprawdź dane i spróbuj dodac ponownie.</string>
+
+</resources>
