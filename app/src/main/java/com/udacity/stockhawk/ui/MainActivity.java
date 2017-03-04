@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
+import com.udacity.stockhawk.data.StockUtils;
 import com.udacity.stockhawk.sync.QuoteSyncJob;
 
 import butterknife.BindView;
@@ -43,6 +45,28 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @BindView(R.id.error)
     TextView error;
     private StockAdapter adapter;
+
+    public class CheckStockAvilabilityTask extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... params) {
+            if (networkUp()) {
+                if (!StockUtils.isCorrectStock(params[0])) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), getString(R.string.incorrect_stock_code), Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            }
+
+            PrefUtils.addStock(MainActivity.this, params[0]);
+            QuoteSyncJob.syncImmediately(MainActivity.this);
+
+            return null;
+        }
+    }
 
     @Override
     public void onClick(String symbol) {
@@ -118,7 +142,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     void addStock(String symbol) {
         if (symbol != null && !symbol.isEmpty()) {
-
             if (networkUp()) {
                 swipeRefreshLayout.setRefreshing(true);
             } else {
@@ -126,8 +149,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             }
 
-            PrefUtils.addStock(this, symbol);
-            QuoteSyncJob.syncImmediately(this);
+            CheckStockAvilabilityTask task = new CheckStockAvilabilityTask();
+            task.execute(symbol);
         }
     }
 
@@ -161,8 +184,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         if (PrefUtils.getDisplayMode(this)
                 .equals(getString(R.string.pref_display_mode_absolute_key))) {
             item.setIcon(R.drawable.ic_percentage);
+            item.setTitle(getString(R.string.display_mode_percentage_content_decription));
         } else {
             item.setIcon(R.drawable.ic_dollar);
+            item.setTitle(getString(R.string.display_mode_absolute_content_decription));
         }
     }
 

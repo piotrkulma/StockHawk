@@ -27,5 +27,9 @@
     <string name="toast_stock_added_no_connectivity">Symbol %s został dodany. Dane zostaną odświerzone gdy połączenie z siecią znów będzie aktywne.</string>
     <string name="toast_no_connectivity">Dane zostaną odświerzone gdy połączenie z siecią znów będzie aktywne.</string>
     <string name="incorrect_stock_code">Kod społki jest niepoprawny. Sprawdź dane i spróbuj dodac ponownie.</string>
+    <string name="dialog_add_content_description">Dodaj nową spółkę do obserwowanych</string>
+    <string name="dialog_cancel_content_description">Zamknij okno do dodawania spółki</string>
+    <string name="display_mode_absolute_content_decription">Wyświetlanie przyrostu kwotowego.</string>
+    <string name="display_mode_percentage_content_decription">Wyświetlanie przyrostu procentowego.</string>
 
 </resources>

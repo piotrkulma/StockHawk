@@ -11,6 +11,7 @@ import android.net.NetworkInfo;
 
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
+import com.udacity.stockhawk.data.StockUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -73,6 +74,11 @@ public final class QuoteSyncJob {
 
 
                 Stock stock = quotes.get(symbol);
+
+                if(!StockUtils.isCorrectStock(stock)) {
+                    continue;
+                }
+
                 StockQuote quote = stock.getQuote();
 
                 float price = quote.getPrice().floatValue();
